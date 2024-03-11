@@ -1,0 +1,54 @@
+📍 What is a fluent wait?
+-> A fluent wait is a type of wait in which we can also specify the polling intervals (the time intervals after which the driver will try to find the elements when not located) along with the maximum timeout value.
+
+Fluent Wait looks for a web element repeatedly at regular intervals until timeout happens or until the object is found.
+
+ Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+ .withTimeout(Duration.ofSeconds(30))
+ .pollingEvery(Duration.ofSeconds(5))
+ .ignoring(NoSuchElementException.class);
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
+
+import java.time.Duration;
+import java.util.function.Function;
+
+public class FluentWaitDemo {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://www.google.com");
+ driver.manage().window().maximize();
+
+ driver.findElement(By.name("q")).sendKeys("facebook");
+ driver.findElement(By.name("btnK")).sendKeys(Keys.RETURN);
+ // driver.findElement(By.linkText("Facebook Log in - Facebook Login - Facebook.com")).click();
+ // Fluent Wait
+ Wait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+ .withTimeout(Duration.ofSeconds(30))
+ .pollingEvery(Duration.ofSeconds(5))
+ .ignoring(NoSuchElementException.class);
+
+ WebElement element = wait.until(new Function<WebDriver, WebElement>() {
+ @Override
+ public WebElement apply(WebDriver webDriver) {
+ WebElement linkElement = driver.findElement(By.linkText("Facebook Log in - Facebook Login - Facebook.com"));
+ if (linkElement.isEnabled()) {
+ System.out.println("Element found");
+ }
+ return linkElement;
+ }
+ });
+ element.click();
+
+ driver.close();
+ driver.quit();
+ }
+}

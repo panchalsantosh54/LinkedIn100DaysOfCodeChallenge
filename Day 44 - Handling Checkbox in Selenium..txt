@@ -1,0 +1,50 @@
+📍 Handling Checkbox in Selenium.
+
+📌 Checkbox is used to select multiple options from a given group of check boxes. 
+You would see a group of check boxes generally on a web page indicating one or other category. 
+
+📌 Operations on Checkbox:
+check the status: selected or deselected: isSelected()
+select a check box: click()
+deselect a check box: click()
+select all checkboxes using a list: selectAll()
+get a value of a check box- getAttribute("value");
+Text: getText()
+
+Code: 
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class CheckBoxHandlingDemo {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dtcxgcbc");
+ //CheckBox
+ WebElement bmwCheckBox = driver.findElement(By.id("bmwcheck"));
+ System.out.println("BEFORE bmw check box status: " + bmwCheckBox.isSelected());
+ bmwCheckBox.click();
+ System.out.println("AFTER bmw check box status " + bmwCheckBox.isSelected());
+
+ WebElement benzCheckBox = driver.findElement(By.id("benzcheck"));
+ System.out.println("BEFORE benz box status " + benzCheckBox.isSelected());
+ benzCheckBox.click();
+// benzCheckBox.isSelected();
+ System.out.println("AFTER benz box status " + benzCheckBox.isSelected());
+
+ WebElement hondaCheckBox = driver.findElement(By.id("hondacheck"));
+ System.out.println("BEFORE honda check box status " + benzCheckBox.isSelected());
+ hondaCheckBox.click();
+// hondaCheckBox.isDisplayed();
+// hondaCheckBox.isEnabled();
+ System.out.println("AFTER honda box status " + benzCheckBox.isSelected());
+
+ driver.close();
+
+ }
+}

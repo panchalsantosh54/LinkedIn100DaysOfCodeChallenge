@@ -1,0 +1,39 @@
+What is an implicit wait?
+
+-> An implicit wait is a type of wait that waits for a specified time while locating an element before throwing NoSuchElementException. 
+
+By default, Selenium tries to find web elements immediately when required without any wait. So, it is good to use implicit wait. 
+
+This wait is applied to all the elements of the current driver instance.
+Syntax:
+
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+
+Code: 
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+
+public class ImplicitWaitDemo {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://www.google.com/");
+ driver.manage().window().maximize();
+ // Implicite Wait
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
+
+ driver.findElement(By.name("q")).sendKeys("facebook");
+ String txt = driver.findElement(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div/ul/li[1]/div/div[2]/div[1]/span")).getText();
+
+ System.out.println("text: " + txt);
+ driver.quit();
+
+ }
+}

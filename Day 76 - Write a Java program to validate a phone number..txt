@@ -1,0 +1,28 @@
+Pattern class
+📌 It is the compiled version of a regular expression. It is used to define a pattern for the regex engine.
+
+Matcher class
+📌 It implements the MatchResult interface. It is a regex engine which is used to perform match operations on a character sequence.
+
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class VerifyMobileNumber {
+ public static boolean isValid(String str) {
+ Pattern pattern = Pattern.compile("^\\d{10}$");
+ Matcher matcher = pattern.matcher(str);
+ return (matcher.matches());
+ }
+ public static void main(String[] args) {
+ boolean result = isValid("8484013653");
+ if (result == true) {
+ System.out.println("Given number is valid");
+ } else {
+ System.out.println("Given number is Invalid");
+ }
+ }
+}

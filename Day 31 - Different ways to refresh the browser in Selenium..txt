@@ -1,0 +1,44 @@
+📍 Different ways to refresh the browser in Selenium.
+
+✔ Refresh the Browser in many different ways with Selenium WebDriver. Sometimes on certain browsers or on certain pages, normal refresh command does not work, in those situations we can easily.
+
+Code: 
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
+
+public class RefreshBrowser {
+ WebDriver driver;
+ @Test
+ public void refreshBrowser() {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://www.google.co.in/");
+ driver.findElement(By.name("q")).sendKeys("Selenium");
+ driver.switchTo().frame("callout");
+ driver.findElement(By.xpath("//*[@aria-label='No thanks']")).click();
+
+ // navigate refresh method
+ driver.navigate().refresh();
+
+ // get current URL
+ driver.get(driver.getCurrentUrl());
+
+ // To command
+ driver.navigate().to(driver.getCurrentUrl());
+
+ // javascript executor
+ JavascriptExecutor js = (JavascriptExecutor) driver;
+ js.executeScript("location.reload()");
+ }
+ @AfterTest
+ public void tearDown(){
+ driver.quit();
+ }
+}

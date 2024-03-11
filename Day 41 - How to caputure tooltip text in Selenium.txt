@@ -1,0 +1,30 @@
+📍 How to caputure tooltip text in Selenium?
+
+📌The tooltips text is a hidden text which is behind the elements like images, buttons, link, etc. and when you place your mouse over those elements, then some text appears which shares some of the information about that element or object.
+
+📌Tooltips are also useful for form elements, to show some additional information in the context of each field.
+Your age: "textfield"
+Hover the field to see the tooltip.
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+
+public class ToolTip {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/draM67Bp");
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+ String toolTipText = driver.findElement(By.id("age")).getAttribute("title");
+ System.out.println(toolTipText);
+
+ driver.quit();
+ }
+}

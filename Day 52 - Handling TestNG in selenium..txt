@@ -1,0 +1,83 @@
+📍 Handling TestNG in selenium.
+
+📌 It is a Java unit testing framework. It has many good features over jUnit.
+📌 The latest version of TestNG as on 26-Dec-23 is 7.6.0
+📌 TestNG is majorly used in automation testing to run smoke/sanity/BVT/BAT/regression test suite.
+
+✔ Order of test execution of all annotations in TestNG:
+@BeforeSuite
+@BeforeTest
+@BeforeClass
+@BeforeMethod
+@DataProvider
+@Test
+@AfterMethod
+@AfterClass
+@AfterTest
+@AfterSuite
+
+Code:
+package CodingChallengeOf100Days;
+
+import org.testng.Assert;
+import org.testng.annotations.*;
+import java.util.Random;
+
+public class TestNGDemo {
+ // will be run before all test in this suite have run
+ @BeforeSuite
+ public void beforeSuite() {
+ System.out.println("Before suite => am in before suite");
+ }
+
+ // will be run after all test in this suite have run
+ @AfterSuite
+ public void afterSuite() {
+ System.out.println("After suite => am in after suite");
+ }
+
+ // will be run before the first test method in the current class is invoked
+ @BeforeClass
+ public void beforeClass() {
+ System.out.println("Before class => am inside before class");
+ }
+
+ // will be run after the all test method in the current class is invoked
+ @AfterClass
+ public void afterClass() {
+ System.out.println("After class => am inside after class");
+ }
+
+ // will be run after each test method
+ @BeforeMethod(alwaysRun = true)
+ public void setUp() {
+ System.out.println("SetUp => am inside before method");
+ }
+
+ // will be run after each test method
+ @AfterMethod(alwaysRun = true)
+ public void tearDown() {
+ System.out.println("TearDown => am inside after method");
+ }
+
+ // define test method/script
+ @Test(priority = 2, description = "This is registration test case !!!")
+ public void verifyUserRegistration() {
+ System.out.println("REGISTRATION => Welcome to TestNG !!!");
+ Assert.fail("Internally failing the test case");
+ }
+
+ @Test(priority = 1, timeOut = 3000, enabled = true, alwaysRun = true, dependsOnGroups = {"verifyUserRegistration"})
+ public void verifyValidLoginCredentials() throws InterruptedException {
+ Thread.sleep(2000);
+ System.out.println("LOGIN => Welcome to testng Again !!!");
+ }
+
+ @Test(invocationCount = 2)
+ public void verifyUser() {
+ Random random = new Random();
+ int value = random.nextInt(1000);
+
+ System.out.println("Java Selenium "+value);
+ }
+}

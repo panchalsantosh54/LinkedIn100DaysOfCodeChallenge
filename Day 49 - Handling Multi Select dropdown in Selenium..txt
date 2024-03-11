@@ -1,0 +1,59 @@
+📍 Handling Multi Select dropdown in Selenium.
+
+📌 If the <select > tag contains multiple attributes, it means that the dropdown allows selecting multiple values.
+📌 The "Select " class provides a method, isMultiple(), using which we can first validate whether the dropdown allows us to select multiple values.
+📌 The "Select " class provides methods to get options from the dropdown. 
+
+isMultiple(): boolean
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import https://lnkd.in/dtbUA7Ck;
+
+import java.util.List;
+
+public class MultiSelectDropdownList {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dtcxgcbc");
+ driver.manage().window().maximize();
+
+ WebElement multiSelect = driver.findElement(By.id("multiple-select-example"));
+ Select select = new Select(multiSelect);
+
+ boolean multipleSelection = select.isMultiple();
+ System.out.println("Multiple Selection Allowed? " + multipleSelection); //true or false
+
+ List<WebElement> list = select.getOptions();
+ System.out.println(list.size()); // 3
+ showElements(list, "Showing all options");
+
+ select.selectByIndex(1);
+ select.selectByIndex(2);
+// select.selectByIndex(0);
+
+ list = select.getAllSelectedOptions();
+ showElements(list, "Showing Selected Option #1");
+
+ select.deselectByVisibleText("Peach");
+ list = select.getAllSelectedOptions();
+ showElements(list, "Showing Selected Option #2");
+ driver.quit();
+ }
+ private static void showElements(List<WebElement> ll, String text) {
+ System.out.println("-".repeat(30));
+ System.out.println(text);
+ System.out.println("-".repeat(30));
+
+ for (WebElement element : ll) {
+ System.out.println(element.getText());
+ }
+ }
+}

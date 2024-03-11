@@ -1,0 +1,50 @@
+Java program to segregate 0s and 1s in given array.
+
+Input = {1,0,1,1,0,1,1,0,0}
+Output = {0,0,0,0,1,1,1,1,1}
+
+📌 Here is a function to segregate all 0s on left and all 1s on right as segregate0and1.
+ 
+📌 We define an array and pass this array along with its length to the function and segregate 0s and 1s using this function.
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+public class Segregate0sand1s {
+ public static void printArray(int[] arr) {
+ for (int num : arr) {
+ System.out.println(num + " ");
+ }
+ System.out.println();
+ }
+ public static int[] segregateValues(int[] input) {
+ int countZeros = 0;
+ int n = input.length;
+ //count the number of zeros in the input array
+ for (int i = 0; i < n; i++) {
+ if (input[i] == 0) {
+ countZeros++;
+ }
+ }
+ //the output array
+ int[] output = new int[n];
+ for (int i = 0; i < n; i++) {
+ if (i < countZeros) {
+ output[i] = 0;
+ } else {
+ output[i] = 1;
+ }
+ }
+ return output;
+ }
+ public static void main(String[] args) {
+ int[] input = {1, 0, 1, 1, 0, 1, 1, 0, 0};
+ int[] output = segregateValues(input);
+
+ System.out.print("Input: ");
+ printArray(input);
+
+ System.out.print("Output: ");
+ printArray(output);
+ }
+}

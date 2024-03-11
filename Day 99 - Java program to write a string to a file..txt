@@ -1,0 +1,56 @@
+
+📌 The writeString() of File Class in Java is used to write contents to the specified file.
+
+📌 ‘java.nio.file.Files’ class is having a predefined writeString() which is used to write all content to a file, using the UTF-8 charset.
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+public class WriteStrInFile {
+ public static void main(String[] args) {
+ WriteStrInFile writeStrInFile = new WriteStrInFile();
+ writeStrInFile.usingWriteStringMethod();
+ writeStrInFile.usingWriteMethod();
+ writeStrInFile.usingWriterMethod(); // Call to the usingWriterMethod
+ System.out.println("Successfully write the quote.");
+ }
+ private void usingWriteStringMethod() {
+ Path path = Paths.get("D:\\quote.txt");
+ String str = "Success is getting what you want, happiness is wanting what you get.";
+ try {
+ Files.writeString(path, str, StandardCharsets.UTF_8);
+ } catch (Exception e) {
+ System.out.println("Invalid path");
+ }
+ }
+ public void usingWriteMethod() {
+ Path path = Paths.get("D:\\quote.txt");
+ String str = "There are no shortcuts to any place worth going.";
+ byte[] array = str.getBytes();
+ try {
+ Files.write(path, array);
+ } catch (Exception e) {
+ System.out.println("Invalid path");
+ }
+ }
+ public void usingWriterMethod() {
+ File file = new File("D:\\quote.txt");
+ FileWriter fileWriter;
+ try {
+ fileWriter = new FileWriter(file);
+ fileWriter.write("There are no shortcuts to any place worth going.");
+ fileWriter.flush();
+ fileWriter.close();
+ } catch (IOException e) {
+ e.printStackTrace();
+ }
+ }
+}

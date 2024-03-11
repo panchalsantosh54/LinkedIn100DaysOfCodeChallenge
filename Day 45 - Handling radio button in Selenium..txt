@@ -1,0 +1,50 @@
+📍 Handling radio button in Selenium.
+
+📌 Used to select only one option at a time. 
+📌 It is used when we have fewer options to select from.
+
+eg: select gender - Male or female
+select result - pass or fail
+
+Once we click on one radio button, other radio button which was selected
+gets deselected and the button which was clicked will be selected.
+
+📌 Operations on Radio Button :-
+1. check the current status of the RB - selected ot deselected
+2. click on the RB
+3. get Value/lable of the RD
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.List;
+
+public class RadioButtonsDemo {
+ public static void main(String[] args) throws InterruptedException {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dtcxgcbc");
+ driver.manage().window().maximize();
+
+ List<WebElement> low = driver.findElements(By.xpath("//input[@name='cars'][@type='radio']"));
+ System.out.println("low size : " + low.size());
+
+ for (int i = 0; i < low.size(); i++) {
+ WebElement element = low.get(i);
+ System.out.println("BEFORE => Radio Button Status " + element.isSelected());
+ element.click();
+ System.out.println("AFTER => Radio Button Status " + element.isSelected());
+ Thread.sleep(20001);
+ }
+
+ Thread.sleep(40001);
+ driver.quit();
+
+ }
+}

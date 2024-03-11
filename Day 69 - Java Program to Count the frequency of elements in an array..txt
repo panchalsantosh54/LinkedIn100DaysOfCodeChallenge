@@ -1,0 +1,31 @@
+Steps:
+📌 Get the array and length of the array.
+📌 Use the HashMap to store the elements occurrence.
+📌 Using for loop, start from the index 0 traverse array.
+📌 If the element is visited for the first time, put the value as 1. If it is already visited increase the value by 1.
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class CountFreqOfArrayElements {
+ public static Map<Integer, Integer> countFreq(int[] arr, int n) {
+ Map<Integer, Integer> map = new HashMap<>();
+ for (int i = 0; i<n; i++) {
+ if (map.containsKey(arr[i])) {
+ map.put(arr[i], map.get(arr[i])+1);
+ } else {
+ map.put(arr[i],1);
+ }
+ }
+ return map;
+ }
+ public static void main(String[] args) {
+ int[] arr = {5,10,15,20,10,15};
+ int n = arr.length;
+ Map<Integer, Integer> count = countFreq(arr, n);
+ System.out.println("Frequency Count of Array Elements: "+count);
+ }
+}

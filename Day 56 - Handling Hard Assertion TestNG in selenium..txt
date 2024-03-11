@@ -1,0 +1,55 @@
+📍 Handling Hard Assertion TestNG in selenium.
+
+📌 Assertions in TestNG are a way to verify that the expected result and the actual result match not in the test case. 
+📌 Soft Assertions are the type of assertions that do not throw an exception immediately when an assertion fails. 
+📌 Therefore, all steps and soft assertions in the automated test will execute before failing the test.
+
+✔ create an instance of SoftAssert class.
+SoftAssert softAssert = new SoftAssert();
+
+✔ we can use this softAssert variable instead of hard assert.
+softAssert.assertEquals(actualUrl, expectedUrl, "Actual page url is not the same as expected");
+
+✔ at the end of the test we need to execute/finalize all soft assertions.
+softAssert.assertAll();
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.asserts.SoftAssert;
+
+public class SoftAssertDemo {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dtGHrYWp");
+ driver.manage().window().maximize();
+ WebElement uName = driver.findElement(By.id("username"));
+ uName.sendKeys("student");
+ WebElement pwd = driver.findElement(By.name("password"));
+ pwd.sendKeys("Password123");
+ WebElement submitBtn = driver.findElement(By.cssSelector("button#submit"));
+ submitBtn.click();
+ SoftAssert softAssert = new SoftAssert(); //create an instance of SoftAssert class.
+
+ String expectedUrl = "https://lnkd.in/dtfXU9Qd";
+ String actualUrl = driver.getCurrentUrl();
+ softAssert.assertEquals(actualUrl, expectedUrl, "Actual page url is not the same as expected"); //use this softAssert var instead of hard assert.
+
+ WebElement successMessage = driver.findElement(By.tagName("strong"));
+ String expectedMessage = "Congratulations Michael Scott. You successfully logged in!";
+ String actualMessage = successMessage.getText();
+
+ softAssert.assertTrue(actualMessage.contains(expectedMessage), "Actual message does not contain expected message.\nActual Message: "
+ + actualMessage + "\nExpected Message: " + expectedMessage);
+ WebElement logOutButton = driver.findElement(By.linkText("Log out"));
+ softAssert.assertTrue(logOutButton.isDisplayed(), "Log Out button is not visible");
+ softAssert.assertAll(); //at the end of the test we need to execute/finalize all soft assertions.
+ driver.quit();
+ }
+}

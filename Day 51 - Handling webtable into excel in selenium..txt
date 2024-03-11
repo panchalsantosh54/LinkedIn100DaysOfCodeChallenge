@@ -1,0 +1,58 @@
+📍 Handling webtable into excel in selenium.
+
+📌 Apache POI is an open-source Java library often utilized to create and handle Microsoft Office-based files.
+✔ Create an Instance of the Workbook Class and Create a New Excel File.
+✔ Create Rows and Cells and Write the Data.
+✔ Create a File Output Stream and Write the Workbook Data to a File.
+✔ Close the Workbook and File Output Stream.
+
+XSSFWorkbook wb = new XSSFWorkbook();
+XSSFSheet sh = wb.createSheet("Gold Rate");
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.List;
+
+public class WebTableIntoExcel {
+ public static void main(String[] args) throws InterruptedException, IOException, InvalidFormatException {
+ File file = new File("E:\\ExtractedWebTable.xlsx");
+ XSSFWorkbook wb = new XSSFWorkbook();
+ XSSFSheet sh = wb.createSheet("Gold Rate");
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dudV_zHN");
+ driver.manage().window().maximize();
+ Thread.sleep(3000);
+ WebElement table = driver.findElement(By.xpath("(//table[@class='table-price'])[2]"));
+ List<WebElement> totalRows = table.findElements(By.tagName("tr"));
+ for (int row = 0; row < totalRows.size(); row++) {
+ XSSFRow rowValue = sh.createRow(row);
+
+ List<WebElement> totalColumns = totalRows.get(row).findElements(By.tagName("td"));
+ for (int col = 0; col < totalColumns.size(); col++) {
+ String cellValue = totalColumns.get(col).getText();
+ System.out.print(cellValue + "\t");
+ rowValue.createCell(col).setCellValue(cellValue);
+ }
+ System.out.println();
+ }
+ FileOutputStream fos = new FileOutputStream(file);
+ wb.write(fos);
+ wb.close();
+ driver.quit();
+ }
+}

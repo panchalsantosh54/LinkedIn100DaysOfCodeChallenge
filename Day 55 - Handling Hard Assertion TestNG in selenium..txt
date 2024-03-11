@@ -1,0 +1,46 @@
+📍 Handling Hard Assertion TestNG in selenium.
+
+📌 Assertions in TestNG are a way to verify that the expected result and the actual result match not in the test case. 
+
+📌 A Hard Assertion is a type of assertion that throws an exception immediately when an assert statement fails. 
+📌 Test steps after hard assertion will not be executed and the next test in the test suite will start.
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+
+public class HardAssertionDemo {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dtGHrYWp");
+ driver.manage().window().maximize();
+ // Hard assertions
+ WebElement uName = driver.findElement(By.id("username"));
+ uName.sendKeys("student");
+ WebElement pwd = driver.findElement(By.name("password"));
+ pwd.sendKeys("Password123");
+ WebElement submitBtn = driver.findElement(By.cssSelector("button#submit"));
+ submitBtn.click();
+
+ String expectedUrl = "https://lnkd.in/dtfXU9Qd";
+ String actualUrl = driver.getCurrentUrl();
+ Assert.assertEquals(actualUrl, expectedUrl, "Actual page url is not the same as expected"); // hard assertion
+
+ WebElement successMessage = driver.findElement(By.tagName("strong"));
+ String expectedMessage = "Congratulations Michael Scott. You successfully logged in!";
+ String actualMessage = successMessage.getText();
+ Assert.assertTrue(actualMessage.contains(expectedMessage), "Actual message does not contain expected " +
+ "message.\nActual Message: " + actualMessage + "\nExpected Message: " + expectedMessage);
+
+ WebElement logOutButton = driver.findElement(By.linkText("Log out"));
+ Assert.assertTrue(logOutButton.isDisplayed(), "Log Out button is not visible");
+ driver.quit();
+ }
+}

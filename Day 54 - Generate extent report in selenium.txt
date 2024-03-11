@@ -1,0 +1,60 @@
+📍 Generate extent report in selenium?
+
+📌 Extent Reports is an open-source reporting library useful for test automation. 
+📌 It can be easily integrated with major testing frameworks like JUnit, NUnit, TestNG, etc. 
+📌 These reports are HTML documents that depict results as pie charts.
+
+📌 Extent Reports in Selenium contain two major, frequently used classes:
+1) ExtentReports class
+2) ExtentTest class
+3) ExtentSparkReporter
+
+📌 Both classes can be used with the following built-in methods:
+-> startTest: Executes preconditions of a test case
+-> endTest: Executes postconditions of a test case
+-> Log: Logs the status of each test step onto the HTML report being generated
+-> Flush: Erases any previous data on a relevant report and creates a whole new report
+
+📌 A Test Status can be indicated by the following values:
+-> PASS
+-> FAIL
+-> SKIP
+-> INFO
+
+Code: 
+package CodingChallengeOf100Days;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
+
+public class ExtentReportDemo {
+ public static void main(String[] args) {
+ // Start Reporter
+ ExtentSparkReporter htmlReporter = new ExtentSparkReporter(
+ System.getProperty("user.dir") + "\\src\\test\\resource\\reports" + "\\extentReportDem.html");
+
+ // Create extentReports and attached reporter
+ ExtentReports extent = new ExtentReports();
+ extent.attachReporter(htmlReporter);
+
+ // create a toggle for the given test, adds all log events under it
+ ExtentTest test1 = extent.createTest("VerifyTestForPayment", "Verification of total payment");
+
+ test1.assignAuthor("Rohit", "Virat"); // assigns an author
+ test1.assignCategory("Smoke", "Regression"); // assigns an author or help
+
+ test1.log(Status.INFO, "this is first step"); //log(status, details)
+ test1.log(Status.INFO, "this is second step"); //log(status, details)
+
+ test1.info("This is info line appeared in report");
+
+ test1.pass("Sample pass test step1");
+ test1.pass("Sample pass test step2");
+
+ test1.fail("Sample FAILED test step");
+
+ extent.flush(); // write entire report to a log file
+ }
+}

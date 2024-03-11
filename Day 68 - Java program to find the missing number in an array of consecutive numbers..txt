@@ -1,0 +1,29 @@
+Steps:
+📌 Find the length of array. 
+📌 Initialize missingNumber as 0.
+📌 The difference between two consecutive number is 1. Using for loop, initialize two variables, i and j, to calculate the difference between numbers.
+📌 If the difference is equal to 1 then numbers are sequential. If not, increase the ith index value by 1.
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+public class MissingNumberInArray {
+ public static void main(String[] args) {
+ int[] arr = {1, 2, 3, 4, 6, 7, 8};
+ findMissingNumber(arr);
+ }
+ public static void findMissingNumber(int[] arr) {
+ int n = arr.length;
+ int missingNumber = 0;
+ for (int i = 0; i < n; i++) {
+ for (int j = i + 1; j < n; j++) {
+ if (arr[j] - arr[i] == 1) {
+ break;
+ } else {
+ missingNumber = arr[i] + 1;
+ }
+ }
+ }
+ System.out.println("Missing Number: " + missingNumber);
+ }
+}

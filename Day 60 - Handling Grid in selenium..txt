@@ -1,0 +1,42 @@
+Handling Grid in selenium.
+
+📌 Selenium GRID is used to distribute the test script on different nodes using hub.
+📌 Hub: to distribute work load (test scripts) on different nodes.
+📌 Node: Are the machines which are used to execute test scripts on browsers.
+
+By default hub runs on 4444 port
+By default node run on port 5555
+
+📌 From any folder: from command prompt
+java -jar selenium-server-4.5.3.jar hub
+To start node from the same machine from grid folder:
+java -jar selenium-server-4.5.3.jar node --port 5555
+To start node from the same machine from grid1 folder:
+java -jar selenium-server-4.5.3.jar node --port 5556
+
+now check if the grid setup is configured using GUI, please issue below command in the browser address bar:
+localhost:4444 Or http://localhost:4444/ui
+
+📌 To reduce the time needed to execute a test suite
+
+📌Run testng.xml both tests will run parallely. That's it !!!
+
+Code:
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://lnkd.in/dg8dNayP">
+<suite name="All Test Suite">
+ <test thread-count="5" parallel="classes" name="Grid">
+ <classes>
+ <class name="CodingChallengeOf100Days.Grid.AmazonTest">
+ <methods>
+ <include name="AMTest"/>
+ </methods>
+ </class>
+ <class name="CodingChallengeOf100Days.Grid.GoogleTest">
+ <methods>
+ <include name="GTest"/>
+ </methods>
+ </class>
+ </classes>
+ </test>
+</suite>

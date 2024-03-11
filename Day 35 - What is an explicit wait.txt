@@ -1,0 +1,52 @@
+📍 Waits in Selenium:
+
+📍 What is an explicit wait?
+-> An explicit wait is a type of wait that is applied to a particular web element until the expected condition specified is met.
+
+WebDriverWait wait = new (driver, Duration.ofSeconds(3));
+
+WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//a/h3")));
+
+Some of the commonly used expected conditions of an element in explicit waits are
+📌 presenceOfElementLocated(By locator)
+📌 elementToBeClickable(WebElement element or By locator)
+📌 visibilityOf(WebElement element)
+📌 visibilityOfElementLocated(By locator)
+📌 invisibilityOfElementLocated(By locator)
+📌 attributeContains(WebElement element, String attribute, String value)
+📌 alertIsPresent()
+📌 titleContains(String title)
+📌 titleIs(String title)
+📌 textToBePresentInElementLocated(By, String)
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class ExplicitWaitDemo {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://www.google.com");
+ driver.manage().window().maximize();
+
+ driver.findElement(By.name("q")).sendKeys("facebook");
+
+ // Explicit wait
+ WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+ String txt = wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("/html/body/div[1]/div[3]/form/div[1]/div[1]/div[2]/div[2]/div[2]/div[1]/div/ul/li[1]/div/div[2]/div[1]/span")))
+ .getText();
+ wait.until(ExpectedConditions.)
+ System.out.println("text: " + txt);
+
+ driver.close();
+ }
+}

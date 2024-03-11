@@ -1,0 +1,36 @@
+📍 Count the number of vowels in the given String.
+
+Code:
+package CodingChallengeOf100Days;
+
+import java.util.Scanner;
+
+public class NumberOfVowelsInString {
+
+ public static void main(String[] args) {
+ NumberOfVowelsInString vowels = new NumberOfVowelsInString();
+ Scanner sc = new Scanner(System.in);
+ System.out.println("Enter the String:");
+ String inputStr = sc.nextLine();
+ if (inputStr == null ||inputStr.isEmpty()){
+ System.out.println("String can not be null or empty");
+ return;
+ }
+ int count = vowels.countVowels(inputStr);
+ System.out.println("Totally " + count + " vowels in a given string");
+ }
+
+ public int countVowels(String str){
+ if (str == null || str.isEmpty()) {
+ throw new IllegalArgumentException("String can not be null or empty");
+ }
+ int vowelCount = 0;
+ str = str.toLowerCase();
+ for (char ch : str.toCharArray()) {
+ if (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u') {
+ vowelCount++;
+ }
+ }
+ return vowelCount;
+ }
+}

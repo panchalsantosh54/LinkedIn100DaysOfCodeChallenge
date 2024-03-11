@@ -1,0 +1,51 @@
+Handling Drag and Drop in Selenium.
+
+📌 This action is performed using a mouse when a user moves (drags) a web element from one location and then places (drops) it at another point.
+
+Actions action = new Actions(driver);
+action.dragAndDrop(Sourcelocator, Destinationlocator).build().perform();
+
+📌 clickAndHold(WebElement element) – Clicks a web element at the middle (without releasing)
+
+📌 moveToElement(WebElement element) – Moves the mouse pointer to the middle of the web element without clicking
+
+📌 release(WebElement element) – Releases the left click (which is in the pressed state)
+
+📌 build() – Generates a composite action
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+
+import java.time.Duration;
+
+public class DragAndDropDemo {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dKr8Qxtd");
+ driver.manage().window().maximize();
+ //It is always advisable to maximize the window before performing DragDrop action
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+ //Actions class method to drag and drop
+ Actions actions = new Actions(driver);
+ WebElement fromElement = driver.findElement(By.id("column-a"));
+ WebElement toElement = driver.findElement(By.id("column-b"));
+ //perform drag and drop
+ actions.dragAndDrop(fromElement, toElement).build().perform();
+ //verify text changed in to 'Drop here' box
+ String textTo = toElement.getText();
+ if (textTo.equals("Dropped!")) {
+ System.out.println("PASS: File is dropped to target as expected");
+ } else {
+ System.out.println("FAIL: File is couldn't be dropped to target as expected");
+ }
+ driver.close();
+ }
+}

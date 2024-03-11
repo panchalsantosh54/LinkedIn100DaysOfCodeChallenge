@@ -1,0 +1,44 @@
+📍 Java Program to Find Duplicate Words in a Given String.
+
+Code:
+package CodingChallengeOf100Days;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
+
+public class DuplicateWordsInString {
+ public static void main(String[] args) {
+ String str = "Practice does not make perfect. only perfect practice make perfect";
+ Map<String, Integer> objMap1 = findDuplicateWords(str);
+ System.out.println(objMap1);
+ }
+
+ public static Map<String, Integer> findDuplicateWords(String s) {
+ String str = s.toLowerCase();
+ if (str == null || str.isEmpty()) {
+ throw new IllegalArgumentException("String can not be null or empty");
+ }
+
+ LinkedHashMap<String, Integer> objMap2 = new LinkedHashMap<>();
+ String[] strArray = str.split(" ");
+ for (String string : strArray) {
+ if (objMap2.containsKey(string)) {
+ objMap2.put(string, objMap2.get(string) + 1);
+ } else {
+ objMap2.put(string, 1);
+ }
+ }
+
+ Set<Map.Entry<String, Integer>> objSet = objMap2.entrySet();
+ System.out.println("Duplicate characters in a String " + str + ":");
+ 
+LinkedHashMap<String, Integer> objDuplicate = new LinkedHashMap<>();
+ for (Map.Entry<String, Integer> entry : objSet) {
+ if (entry.getValue() > 1) {
+ objDuplicate.put(entry.getKey(), entry.getValue());
+ }
+ }
+ return objDuplicate;
+ }
+}

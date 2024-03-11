@@ -1,0 +1,22 @@
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.util.Scanner;
+
+public class CapitalizeWords {
+ public static void main(String[] args) {
+ Scanner sc = new Scanner(System.in);
+ System.out.println("Enter the sentence: ");
+ String sentence = sc.nextLine();
+ String[] words = sentence.split(" ");
+ StringBuilder stringBuilder = new StringBuilder();
+ for (String word : words) {
+ char firstLetter = word.charAt(0);
+ char upperCaseFirstLetter = Character.toUpperCase(firstLetter);
+ String str = word.substring(1);
+ stringBuilder.append(upperCaseFirstLetter).append(str).append(" ");
+ }
+ System.out.println(stringBuilder.toString().trim());
+ sc.close();
+ }
+}

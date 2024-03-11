@@ -1,0 +1,22 @@
+📍 How to delete cookies in Selenium.
+
+📌 Using deleteAllCookies() method, we can delete all cookies.
+
+- To clear all cookies stored by the current browser session, you can use the deleteAllCookies method. This method is called on the WebDriver. 
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class DeleteCookies {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://www.amazon.in/");
+ driver.manage().deleteAllCookies();
+ System.out.println("Cookies deleted");
+ }
+}

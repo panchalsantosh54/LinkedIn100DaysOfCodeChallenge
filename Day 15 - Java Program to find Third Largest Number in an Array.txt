@@ -1,0 +1,39 @@
+📍 Java Program to find Third Largest Number in an Array
+
+Steps:
+✔   Get the input from the user using Scanner class.
+✔   Iterate using for loop, to store the elements in an array.
+✔   Convert the array to a list using the Arrays.asList() method.
+✔   Using Collections.sort() method, sort the list.
+✔   The get() method of List interface in Java is used to get the element present in the list at a given specific index.
+✔   By subtracting 3 from total number of element we can get the third largest element in an array.
+
+Code:
+package CodingChallengeOf100Days;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Scanner;
+
+public class ThirdLargestInArray {
+ public static void main(String[] args) {
+ ThirdLargestInArray thirdLargestInArray = new ThirdLargestInArray();
+ thirdLargestInArray.findThirdLargestElement();
+ }
+ public void findThirdLargestElement() {
+ Scanner sc = new Scanner(System.in);
+ int num = sc.nextInt();
+ Integer[] intArr = new Integer[num];
+ System.out.println("Enter the elements: ");
+
+ for (int i = 0; i < num; i++) {
+ intArr[i] = sc.nextInt();
+ }
+ List<Integer> list = Arrays.asList(intArr);
+ Collections.sort(list);
+ int element = list.get(num - 3);
+ System.out.println("Third Largest Element: " + element);
+
+ }
+}

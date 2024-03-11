@@ -1,0 +1,39 @@
+📌 Store n elements in a temp array
+📌 Shift rest of the arr[]
+📌 Store back the n elements
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+public class ArrayRotation {
+ public static void main(String[] args) {
+ int[] arr = {1, 2, 3, 4, 5, 6, 7};
+ int positionsToRotate = 2;
+ System.out.println("Original Array: ");
+ for (int i : arr) {
+ System.out.print(i + " ");
+ }
+ System.out.println();
+ rotateLeftFunction(arr, positionsToRotate);
+ System.out.println("Array after rotation");
+ for (int i : arr) {
+ System.out.print(i + " ");
+ }
+ }
+ private static void rotateLeftFunction(int[] arr, int n) {
+ int[] temp = new int[n];
+ int length = arr.length;
+ //copy the positions to temp
+ for (int i = 0; i < n; i++) {
+ temp[i] = arr[i];
+ }
+ // shift the remaining elements to left
+ for (int i = n; i < length; i++) {
+ arr[i - n] = arr[i];
+ }
+ //copy the elements from the temporary array to the end of the original array
+ for (int i = 0; i < n; i++) {
+ arr[length - n + i] = temp[i];
+ }
+ }
+}

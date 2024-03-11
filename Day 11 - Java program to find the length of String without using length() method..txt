@@ -1,0 +1,22 @@
+📍 Java program to find the length of String without using length() method.
+
+Coding :
+
+package CodingChallengeOf100Days;
+
+public class LengthOfString {
+
+ public static void findLengthOfString(String str) {
+ char[] charArray = str.toCharArray();
+ int length = 0;
+ for (char ch : charArray) {
+ length++;
+ }
+ System.out.println("length of " + str + ": " + length);
+ }
+
+ public static void main(String[] args) {
+ findLengthOfString("Santosh");
+ findLengthOfString("Through determination and strong will power, a person can reach");
+ }
+}

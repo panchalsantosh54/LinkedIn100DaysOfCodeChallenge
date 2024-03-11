@@ -1,0 +1,28 @@
+📍 Java program to count occurrences of a word in string.
+
+Code:
+package CodingChallengeOf100Days;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class CountOccurrenceOfStringWord {
+
+ public void countWord(String string) {
+ Map<String, Integer> objMap = new HashMap<String, Integer>();
+ String[] strArray = string.split(" ");
+ for (String s : strArray){
+ if (objMap.containsKey(s)){
+ objMap.put(s, objMap.get(s) + 1);
+ } else {
+ objMap.put(s, 1);
+ }
+ }
+ System.out.println(objMap);
+ }
+
+ public static void main(String[] args) {
+ CountOccurrenceOfStringWord occurrence = new CountOccurrenceOfStringWord();
+ occurrence.countWord("A man becomes perfect one day only by practicing");
+ }
+}

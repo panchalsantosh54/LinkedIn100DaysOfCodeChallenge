@@ -1,0 +1,32 @@
+📌 HashMap<K, V> is a Java Collection and is a part of java.util package. 
+📌 It provides the basic implementation of the Map interface of Java. It stores the data in the form of Key, Value pairs.
+📌 To store the entry set in a list and then sort the list based on values using the Collections.sort() method with the help of Comparator.
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.util.*;
+
+public class SortHashMapByValue {
+ public static void main(String[] args) {
+ HashMap<String, Integer> hashMap = new HashMap<>();
+ hashMap.put("Santosh", 15);
+ hashMap.put("Surya", 5);
+ hashMap.put("Rohit", 21);
+ hashMap.put("John", 10);
+ List<Map.Entry<String, Integer>> list = new ArrayList<>(hashMap.entrySet());
+ Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+ @Override
+ public int compare(Map.Entry<String, Integer> entry1, Map.Entry<String, Integer> entry2) {
+ return entry1.getValue().compareTo(entry2.getValue());
+ }
+ });
+ LinkedHashMap<String, Integer> sortedMap = new LinkedHashMap<>();
+ for (Map.Entry<String, Integer> entry : list) {
+ sortedMap.put(entry.getKey(), entry.getValue());
+ }
+ for (Map.Entry<String, Integer> entry : sortedMap.entrySet()) {
+ System.out.println(entry.getKey() + ": " + entry.getValue());
+ }
+ }
+}

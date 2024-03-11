@@ -1,0 +1,40 @@
+📍 Handling WebTable in Selenium.
+
+📌 Table on a web page is called webtable. 
+📌 WebTable has html tag as <table>
+<tr> : Table row
+<th> : Table header
+<td> : table data
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.List;
+
+public class WebTableHandling {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dtcxgcbc");
+ driver.manage().window().maximize();
+
+ List<WebElement> low = driver.findElements(By.xpath("//tbody/tr/td"));
+ byte fldCnt = 0;
+
+ for (WebElement element : low) {
+ System.out.println(element.getText() + "\t");
+ fldCnt++;
+ if (fldCnt == 3) {
+ System.out.println();
+ fldCnt = 0;
+ }
+ }
+ driver.quit();
+ }
+}

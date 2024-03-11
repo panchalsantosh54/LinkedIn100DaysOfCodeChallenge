@@ -1,0 +1,32 @@
+📌 To get a substring having the last 4 chars first check the length of the string. 
+
+📌Suppose the string length is greater than 4 then use the substring(int beginIndex) method that returns the complete string from that specified beginIndex.
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.util.Scanner;
+
+public class ExtractLastFourCharacters {
+ public static void main(String[] args) {
+ Scanner sc = new Scanner(System.in);
+ System.out.println("Enter the string: ");
+ String input = sc.nextLine();
+ String result = extractLastFourCharacters(input);
+ System.out.println(result);
+ sc.close();
+ }
+ public static String extractLastFourCharacters(String str) {
+ if (str == null) {
+ return "Input is null";
+ }
+ int length = str.length();
+ String res = null;
+ if (length <= 4) {
+ return str;
+ } else {
+ res = str.substring(length - 4);
+ }
+ return res;
+ }
+}

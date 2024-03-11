@@ -1,0 +1,64 @@
+📍 Broken Links in Selenium.
+
+📌 Broken links may exist due to some kind of server error,
+📌 If a user clicks on a broken link, they will be directed to an error page.
+📌 Use <a> tag to fetch all the links present on a web page
+📌 Send HTTP request for the link
+📌 Verify the HTTP response code for the link
+📌 Determine if the link is valid or it is broken based on the HTTP response code
+📌 Repeat the process for all links captured with the first step
+
+URL link = new URL(url);
+HttpURLConnection httpURLConnection = (HttpURLConnection) link.openConnection();
+httpURLConnection.setConnectTimeout(3000); // Set connection timeout to 3 sec
+httpURLConnection.connect();
+
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+
+public class BrokenLinks {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ //Navigate to website
+ driver.get("https://jqueryui.com/");
+ driver.manage().window().maximize();
+ //Finding all the available links on webpage
+ List<WebElement> links = driver.findElements(By.tagName("a"));
+
+ //Iterating each link and checking the response status
+ for (WebElement link : links) {
+ String url = link.getAttribute("href");
+ verifyLink(url);
+ }
+ driver.quit();
+ }
+ public static void verifyLink(String url) {
+ try {
+ URL link = new URL(url);
+ HttpURLConnection httpURLConnection = (HttpURLConnection) link.openConnection();
+ httpURLConnection.setConnectTimeout(3000); //Set connection timeout to 3 seconds
+ httpURLConnection.connect();
+
+ if (httpURLConnection.getResponseCode() == 200) {
+ System.out.println(url + " - " + httpURLConnection.getResponseMessage());
+ } else {
+ System.out.println(url + " - " + httpURLConnection.getResponseMessage() + " - " + "is a broken link");
+ }
+ } catch (IOException e) {
+ System.out.println(url + " - " + "is a broken link");
+ }
+ }
+}

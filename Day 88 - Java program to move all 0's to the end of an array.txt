@@ -1,0 +1,35 @@
+Java program to move all 0's to the end of an array
+input : array = {1,0,0,2,5,0,8,0,7}
+output : array = {1,2,5,8,7,0,0,0,0}
+
+📌 Given an array of random numbers, Push all the zero’s of a given array to the end of the array. 
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+public class MoveZerosToEnd {
+ public static void main(String[] args) {
+ int[] array = {1,0,0,2,5,0,8,0,7};
+ System.out.println("Original array: ");
+ for (int i=0; i<array.length; i++) {
+ System.out.print(array[i]+ " ");
+ }
+ System.out.println();
+ System.out.println("Modified array: ");
+ int[] modifiedArray = moveZeros(array);
+ for (int i=0; i<array.length; i++) {
+ System.out.print(modifiedArray[i]+ " ");
+ }
+ }
+ private static int[] moveZeros(int[] arr) {
+ int[] result = new int[arr.length];
+ int noZeros = 0;
+ for (int i=0; i<arr.length; i++) {
+ if (arr[i]!=0) {
+ result[noZeros]=arr[i];
+ noZeros++;
+ }
+ }
+ return result;
+ }
+}

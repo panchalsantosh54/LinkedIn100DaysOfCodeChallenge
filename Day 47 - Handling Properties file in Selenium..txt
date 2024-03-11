@@ -1,0 +1,54 @@
+📍 Handling Properties file in Selenium.
+
+📌 Properties file are used to pass/read parameters required to run a test suite.
+Eg: Browser:
+Buildno:
+Platform: 
+timeout: 
+etc.
+
+-> Comments are mentioned using # in .properties file.
+
+-> Multiple times, if a key is mentioned, last key value is taken/read from properties file.
+
+-> If a key is not present, null value is returned, no exception or error is thrown.
+
+System.getProperty("user.dir") :- returns project root folder 
+
+Code:
+package CodingChallengeOf100Days;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+public class ReadingConfigPropertiesFile {
+ public static void main(String[] args) {
+ String fileName = System.getProperty("user.dir") + "\\src\\main\\java\\CodingChallengeOf100Days\\config.properties";
+ try {
+ FileInputStream fis = new FileInputStream(fileName);
+ Properties prop = new Properties();
+ prop.load(fis); //load config.properties into a memory
+ String url = (String) prop.get("url");
+ System.out.println("URL: " + url);
+
+ String browserName = (String) prop.get("browser");
+ System.out.println("BROWSER: " + browserName);
+
+ String searchString = prop.getProperty("searchString");
+ System.out.println("SEARCH STRING: " + searchString);
+
+ System.out.println("BROWSER NAME: " + browserName);
+
+ String timeOut = prop.getProperty("timeout");
+ System.out.println("Timeout: " + (Integer.parseInt(timeOut) + 2));
+ } catch (FileNotFoundException e) {
+ System.out.println("File does not exist : " + fileName);
+ e.printStackTrace();
+ } catch (IOException e) {
+ System.out.println("File loading issue : " + fileName);
+ e.printStackTrace();
+ }
+ }
+}

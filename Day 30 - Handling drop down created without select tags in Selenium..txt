@@ -1,0 +1,40 @@
+📍 Handling drop down created without select tags in Selenium.
+
+✔ Click on drop down to make options visible.
+✔ Create a custom locator using option to be selected.
+✔ Locate it and select.
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.Test;
+import java.time.Duration;
+
+public class NonSelectXpaths {
+ WebDriver driver;
+ @Test
+ public void iterateOptions() {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://www.facebook.com/");
+ driver.findElement(By.xpath("//*[@data-testid='open-registration-form-button']")).click();
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
+ WebElement day=driver.findElement(By.id("day"));
+ day.click();
+ selectOption(driver, "10");
+ }
+ public void selectOption(WebDriver driver, String optionToBeSelected) {
+ String dayToBeSelected="//option[text()='" +optionToBeSelected+ "']";
+ driver.findElement(By.xpath(dayToBeSelected)).click();
+ }
+ @AfterTest
+ public void tearDown(){
+ driver.quit();
+ }
+}

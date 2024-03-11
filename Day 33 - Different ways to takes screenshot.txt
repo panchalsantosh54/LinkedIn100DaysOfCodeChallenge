@@ -1,0 +1,58 @@
+📍 Different ways to takes screenshot
+
+📎 Using TakeScreenshot
+
+📌 Convert web driver object to TakeScreenshot interface.
+📌 Call getScreenshotAs method to create image file
+📌 Copy file to Desired Location using FileHandler
+
+TakesScreenshot takesScreenshot= (TakesScreenshot) driver;
+File sourceFile =takesScreenshot.getScreenshotAs(OutputType.FILE);
+File destinationFile=new File("E://homepage.png");
+FileHandler.copy(sourceFile, destinationFile);
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.io.File;
+import java.io.IOException;
+
+public class ScreenShotCaptures {
+ public static void main(String[] args) throws IOException {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/d9pfZt8q");
+ driver.manage().window().maximize();
+
+ TakesScreenshot ts = (TakesScreenshot) driver;
+ File src = ts.getScreenshotAs(OutputType.FILE);
+ File target = new File(".\\src\\test\\resource\\homepage.png");
+ FileUtils.copyFile(src, target);
+
+ driver.close();
+ }
+}
+===============================================
+📎 Using Robot class
+
+📌 Java provides a class named “Robot” which is present in java.awt package.
+📌 Using Robot class, we can control over the mouse and keyboard devices.
+📌 Create an object of Robot class.
+📌 Get the screen size as a Rectangle.
+📌 Use createScreenCapture of Robot class and capture screenshot. This is source image.
+📌 Define destination path for screenshot.
+📌 Write source file in to permanent file.
+
+Robot robot=new Robot();
+Dimension dimension=Toolkit.getDefaultToolkit().getScreenSize();
+Rectangle rectangle=new Rectangle(dimension);
+BufferedImage srcFile =robot.createScreenCapture(rectangle);
+File destFile=new File("E://robotimage.png");
+ImageIO.write(srcFile, "png", destFile);

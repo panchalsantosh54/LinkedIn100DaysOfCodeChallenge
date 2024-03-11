@@ -1,0 +1,50 @@
+Handling JavascriptExecutor in Selenium.
+
+📌 JavascriptExecutor is an interface. We can’t create an object of an interface. 
+📌 We can execute Javascript within selenium with the help of JavascriptExecutor. 
+📌 Driver object has to typecast to JavascriptExecutor in order to make used of JavascriptExecutor’s methods.
+
+📌 One can execute Java script, can interact with element present on a web page. 
+
+JavascriptExecutor js = (JavascriptExecutor) driver;
+
+One can 
+- Click button using JavascriptExecutor, 
+- Can enter text into text field using JavascriptExecutor. 
+- Can click on Menu option 
+- Movemouse to specific element/menu option etc.
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
+
+public class JavascriptExecutorDemo {
+
+ @Test
+ public void Login() {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ //Creating the JavaScriptExecutor interface object by Type casting
+ JavascriptExecutor js = (JavascriptExecutor) driver;
+ //Launching the site
+ driver.get("https://lnkd.in/d97vEtAM");
+ WebElement btn = driver.findElement(By.name("btnLogin"));
+
+ //Login
+ driver.findElement(By.name("uid")).sendKeys("mngr34926");
+ driver.findElement(By.name("password")).sendKeys("amUpenu");
+
+ //Perform Click on LOGIN button using JavascriptExecutor
+ js.executeScript("arguments[0].click();", btn);
+
+ //To generate Alert window using JavascriptExecutor. Display the alert message
+ js.executeScript("alert('Welcome to homepage');");
+ }
+}

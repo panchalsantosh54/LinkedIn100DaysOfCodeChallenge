@@ -1,0 +1,8 @@
+📍 How to add text in the text box without using sendkeys()?
+
+We can input text in the text box without the method sendKeys with thehelp of the JavaScript Executor. Selenium executes JavaScript commands with the help of the executeScript method.
+
+Using JavaScriptExecutor, we can enter text in the text box.
+
+JavascriptExecutor js = (JavascriptExecutor) driver;
+js.executeScript("document.getElementById('gsc-i-id1').value='Selenium'");

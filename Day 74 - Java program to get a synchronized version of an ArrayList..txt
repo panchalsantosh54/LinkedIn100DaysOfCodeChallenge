@@ -1,0 +1,32 @@
+📌 ArrayList is non-synchronized collection and should not be used in a concurrent environment without explicit synchronization. 
+
+📌 To synchronize an ArrayList, we can use Collections.synchronizedList() method that returns a synchronized list backed by the specified list.
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class SynchronizedArrayListExample {
+ public static void main(String[] args) {
+ //Create a Arraylist
+ List<String> list = new ArrayList<>();
+
+ //Make it synchronized
+ List<String> synchronizedList = Collections.synchronizedList(list);
+
+ //Let's add some things to the synchronized list
+ synchronizedList.add("BMW");
+ synchronizedList.add("Mercidees");
+ synchronizedList.add("Maruti Swift");
+ synchronizedList.add("Toyota Fortuner");
+ synchronizedList.add("Thar");
+ synchronizedList.add("Tata Nexon");
+
+ //Add you can also remove things from the list
+ synchronizedList.remove("Maruti Swift");
+ System.out.println(synchronizedList);
+ }
+}

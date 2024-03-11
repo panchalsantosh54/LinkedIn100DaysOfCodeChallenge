@@ -1,0 +1,22 @@
+📌 The method is a java.util.Collections class method. It counts the frequency of the specified element in the given list.
+
+📌 Collections.frequency(collection c, object o))
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class ArraylistFrequency {
+ public static void main(String[] args) {
+ ArrayList<Integer> list = new ArrayList<>();
+ list.add(6);
+ list.add(12);
+ list.add(18);
+ list.add(6);
+ list.add(24);
+ System.out.println(list);
+ System.out.println("Frequency of the element : "+ Collections.frequency(list, 6));
+ }
+}

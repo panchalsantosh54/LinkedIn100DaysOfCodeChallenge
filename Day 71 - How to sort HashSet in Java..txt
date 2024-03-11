@@ -1,0 +1,26 @@
+How to sort HashSet in Java.
+
+📌 The elements of the HashSet can be sorted indirectly by converting into List or TreeSet, but this will keep the elements in the target type instead of HashSet type.
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+
+public class SortHashSet {
+ public static void main(String[] args) {
+ HashSet<Integer> set = new HashSet<>();
+ set.add(55);
+ set.add(8);
+ set.add(15);
+ set.add(24);
+ set.add(58);
+ System.out.println("Original HashSet: "+set);
+ List<Integer> list = new ArrayList<>(set);
+ Collections.sort(list);
+ System.out.println("Sorted HashSet: "+list);
+ }
+}

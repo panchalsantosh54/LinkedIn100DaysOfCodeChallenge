@@ -1,0 +1,50 @@
+📍 How to handle multiple windows in Selenium?
+
+Selenium webdriver provides the following methods by which we can handle multiple windows.
+
+✔ getWindowHandle(): This method will return the id of the current opened window. This method will return the value of String type.
+
+✔ getWindowHandles(): This method will return the id of the opened windows. That is all the child windows along with parent windows. By iterating the windows, we can switch to all windows. This method will return the value of Set<String> type.
+
+✔ switchto(): Using this method we perform switch operation within windows.
+
+✔ set: This method helps to set the window handles in the form of a string. set<string> set= driver.get.windowhandles()
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.Set;
+
+public class WindowHandlingDemo {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+
+ // Load the website
+ driver.get("https://lnkd.in/gMujcCAR");
+ driver.manage().window().maximize();
+
+ WebElement button1 = driver.findElement(By.xpath("//button[@id='newWindowBtn']"));
+ // It will return the parent window name as a String
+ String parentWindow = driver.getWindowHandle();
+ button1.click();
+ Set<String> allWindows = driver.getWindowHandles(); // parent+child window
+ // Now iterate
+ for (String childWindow : allWindows) {
+
+ if (!childWindow.equals(parentWindow)) {
+ driver.switchTo().window(childWindow);
+ driver.close();
+ }
+ }
+ driver.switchTo().window(parentWindow);
+ System.out.println(driver.switchTo().window(parentWindow).getTitle());
+ driver.close();
+ }
+}

@@ -1,0 +1,50 @@
+📍 Handling window and new tab in Selenium.
+
+1) getWindowHandles(): 
+📌 getWindowHandles() is a method provided by the WebDriver interface in Selenium. 
+📌 It returns a set of window handles, each representing a unique window or tab. 
+📌 This method can be used to switch between multiple windows or tabs open in the browser.
+
+Set<String> handles = driver.getWindowHandles();
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.util.Iterator;
+import java.util.Set;
+
+public class OpenwindowDemo {
+ public static void main(String[] args) throws InterruptedException {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dtcxgcbc");
+ driver.manage().window().maximize();
+ WebElement clickOnWindow = driver.findElement(By.id("openwindow"));
+ clickOnWindow.click();
+ Set<String> windowHandles = driver.getWindowHandles();
+ Iterator<String> windIds = windowHandles.iterator();
+ String parentWindId = windIds.next();
+ String childWindId = windIds.next();
+
+ driver.switchTo().window(childWindId);
+ System.out.println("Child window title : " + driver.getTitle());
+
+ driver.switchTo().window(parentWindId);
+ System.out.println("Parent window title : " + driver.getTitle());
+
+ String pageTitle = driver.findElement(By.xpath("//div[@class='col-md-12']//h1")).getText();
+ if (pageTitle.equals("Practice Page"))
+ System.out.println("Test case passed");
+ else
+ System.out.println("Test case failed");
+
+ Thread.sleep(40001);
+ driver.quit();
+ }
+}

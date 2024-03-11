@@ -1,0 +1,58 @@
+📍 How to handle shadow element in Selenium.
+
+- Shadow element is a part of DOM.
+- Shadow DOM is a hidden part of other part off DOM
+- Shadow DOM has a host associated
+- Shadow element is a part of Shadow DOM which can’t be identified by xpath
+- To identify an element under Shadow tree element requires CSSSelector
+Only Shadow element which has Open word....
+
+syntax:
+
+WebDriverManager.edgedriver().setup();
+WebDriver driver = new
+EdgeDriver();
+
+driver.navigate().to(&quot;https://lnkd.in/dqsiykQy;);
+
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+// click on
+
+SearchContext btnMensShop =
+driver.findElement(By.tagName(&quot;shop-app&quot;)).getShadowRoot();
+
+btnMensShop.findElement(By.cssSelector(&quot;a[href=&#39;/list/mens_outerwear&#39;]&quot;)).click();
+
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+
+public class ShadowElementDemo {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.navigate().to("https://lnkd.in/dPVKcBuu");
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
+ //Click on shop now button for men's wear
+ SearchContext btnMenShop = driver.findElement(By.tagName("shop-app")).getShadowRoot();
+ btnMenShop.findElement(By.cssSelector("a[href='/list/mens_outerwear']")).click();
+
+ System.out.println("Get Shadow root: " + btnMenShop);
+
+ String title = driver.getTitle();
+ System.out.println(title);
+
+ String url = driver.getCurrentUrl();
+ System.out.println(url);
+ driver.close();
+ }
+}

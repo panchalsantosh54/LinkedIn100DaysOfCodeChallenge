@@ -1,0 +1,25 @@
+📍 Java program to the reverse a character.
+
+Code:
+package CodingChallengeOf100Days;
+
+import java.util.Scanner;
+
+public class ReverseCharacter {
+
+ public static void reverseChar() {
+ Scanner sc = new Scanner(System.in);
+ System.out.println("Enter the Character");
+ String givenStr = sc.nextLine();
+ String reversedStr = "";
+ char[] givenStrCharArray = givenStr.toCharArray();
+ for (int i = givenStrCharArray.length - 1; i >= 0; i--) {
+ reversedStr = reversedStr + givenStrCharArray[i];
+ }
+ System.out.println(reversedStr);
+ }
+
+ public static void main(String[] args) {
+ reverseChar();
+ }
+}

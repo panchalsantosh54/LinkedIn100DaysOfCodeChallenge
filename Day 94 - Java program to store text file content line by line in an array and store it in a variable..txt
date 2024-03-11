@@ -1,0 +1,36 @@
+📌 As to read the content of the file, first we need to create a file with some text in it.
+📌 Using BufferedReader to read the file
+
+📌 BufferedReader bf=new BufferedReader (new FileReader(filename));
+
+📌 BufferedReader also provides a method called readLine that takes the entire line in a file as a string.
+
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class ReadFileLineByLine {
+ public static void main(String[] args) {
+ List<String> list = new ArrayList<>();
+ String line = "";
+ try {
+ BufferedReader reader = new BufferedReader(new FileReader("E:\\example.txt"));
+ while ((line = reader.readLine()) != null) {
+ list.add(line);
+ }
+ System.out.println(Arrays.toString(list.toArray()));
+ reader.close();
+ } catch (FileNotFoundException e) {
+ System.out.println("File not found");
+ } catch (IOException e) {
+ System.out.println("Unable to read the file.");
+ }
+ }
+}

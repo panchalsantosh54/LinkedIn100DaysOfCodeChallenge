@@ -1,0 +1,31 @@
+-> Java Program to remove vowels from a String.
+
+Given a string, remove the vowels from the string and print the string without vowels. 
+
+Input : santosh
+Output : sntsh
+
+The replaceAll() method replaces each substring that matches the regex of the string with the specified text.
+
+Syntax of replaceAll(): 
+
+string.replaceAll(String regex, String replacement)
+
+where,
+regex - a regex (can be a typical string) that is to be replaced
+replacement - matching substrings are replaced with this string
+
+Code:
+package CodingChallengeOf100Days;
+
+public class RemoveVowels {
+ public void removeVowelsMethod(String str) {
+ String regex = "[aeiouAEIOU]";
+ System.out.println(str.replaceAll(regex, ""));
+ }
+ 
+ public static void main(String[] args) {
+ RemoveVowels removeVowels = new RemoveVowels();
+ removeVowels.removeVowelsMethod("Actions Speak Louder than Words");
+ }
+}

@@ -1,0 +1,21 @@
+📍 What are the differences between get() and navigate() method?
+
+🔵 get():
+✔ get() method is responsible for loading the page and waits until the page has finished loading.
+✔ It cannot track the history of the browser.
+
+Example : 
+WebDriver driver = new ChromeDriver();
+driver.get("http://www.google.com");
+
+🔵 navigate():
+✔ navigate() is only responsible for redirecting the page and then returning immediately.
+✔ It tracks the browser history and can perform back and forth in the browser.
+
+Example: 
+WebDriver driver = new ChromeDriver();
+driver.navigate().to("https://www.amazon.com");
+
+driver.navigate().forward();
+driver.navigate().back();
+driver.navigate().refresh();

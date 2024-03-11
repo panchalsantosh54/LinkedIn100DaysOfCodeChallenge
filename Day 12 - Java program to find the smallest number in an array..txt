@@ -1,0 +1,41 @@
+📍 Java program to find the smallest number in an array.
+
+Step by step:
+✔ To get a input from a user, we're using Scanner class.
+✔ int num = sc.nextInt(), get the number of elements we want to store.
+✔ int[] array = new int[num];, creates an array with size n.
+✔ By iterating from 0 to i<num, we can get the elements from user in array[i].
+✔ Then, pass this array as a parameter to the findSmallestArray() method.
+✔ Where, we say Integer.MAX_VALUE as the smallest number.
+✔ Next, we are comparing array[i] less than smallest number. If so, we need to change the smallest number as array[i].
+
+Code:
+
+package CodingChallengeOf100Days;
+
+import java.util.Scanner;
+
+public class SmallestNumberInArray {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+System.out.println("Enter the number of elements: ");
+int num = sc.nextInt();
+int[] array = new int[num];
+System.out.println("Enter the elements of the array: ");
+for (int i = 0; i < num; i++) {
+array[i] = sc.nextInt();
+}
+SmallestNumberInArray smallNumArray = new SmallestNumberInArray();
+smallNumArray.findSmallestNumber(array);
+}
+
+public static void findSmallestNumber(int[] givenArray) {
+int smallest = Integer.MAX_VALUE;
+for (int i = 0; i < givenArray.length; i++) {
+if (givenArray[i] < smallest) {
+smallest = givenArray[i];
+}
+}
+System.out.println("Smallest number: " + smallest);
+}
+}

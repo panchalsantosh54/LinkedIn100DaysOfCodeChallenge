@@ -1,0 +1,35 @@
+📍 Java program to find the duplicate elements in an array.
+
+Steps:
+✔ Get the input from the user.
+✔ Compare the number with its following number using for loop. If both are same, then it is duplicate.
+
+Code:
+package CodingChallengeOf100Days;
+
+import java.util.Scanner;
+
+public class DuplicateElementInArray {
+ public static void main(String[] args) {
+ DuplicateElementInArray duplicateElementInArray = new DuplicateElementInArray();
+ duplicateElementInArray.findDuplicateElement();
+ }
+ public void findDuplicateElement() {
+ Scanner sc = new Scanner(System.in);
+ System.out.println("Enter the element: ");
+ int element = sc.nextInt();
+ int[] givenArray = new int[element];
+ 
+ for (int i = 0; i < element; i++) {
+ givenArray[i] = sc.nextInt();
+ }
+ System.out.println("duplicate array in a given array: ");
+ for (int i = 0; i < givenArray.length; i++) {
+ for (int j = i + 1; j < givenArray.length; j++) {
+ if (givenArray[i] == givenArray[j]) {
+ System.out.println(givenArray[i]);
+ }
+ }
+ }
+ }
+}

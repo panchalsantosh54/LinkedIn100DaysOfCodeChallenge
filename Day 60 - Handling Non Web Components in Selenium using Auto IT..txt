@@ -1,0 +1,63 @@
+Handling Non Web Components in Selenium using Auto IT.
+
+📌 Auto IT is one of the open source/free tool which automate non web component in windows environment.
+📌 It can simulate any combination of keystrokes, mouse movement, and window/control manipulation.
+📌 Mainly AUTOIT is used to
+- Upload files using Windows Open dialogue window
+- Handle window GUI and non HTML popup
+📌 winWaitActive(): Pauses execution of the script until the requested window is active.
+WinWaitActive("title" [, "text" [, timeout = 0]])
+
+Code:
+package CodingChallengeOf100Days.AutoIT;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import java.time.Duration;
+
+public class UploadFileDeMouUsingTestNG {
+ WebDriver driver;
+ @BeforeMethod
+ public void beforeMethod() {
+ WebDriverManager.chromedriver().setup();
+ driver = new ChromeDriver();
+ driver.navigate().to("https://lnkd.in/dSaxNT2X");
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+ }
+ @Test
+ public void test() {
+ //click the cv button
+ driver.findElement(By.xpath("//label[@for='file-upload']")).click();
+ //Enter file to upload using window's Open Dialogue Window
+ try {
+ Process process = Runtime.getRuntime().exec("F:\\SANTOSH\\IntelliJ-Program\\IntelliJ-Program\\BDD_Cucumber_Maven\\src\\test\\java\\CodingChallengeOf100Days\\AutoIT\\filetoupload.exe");
+ int retValue = process.waitFor();
+ System.out.println("retValue : " + retValue);
+ } catch (Exception e) {
+ System.out.println("File was not uploaded properly");
+ e.printStackTrace();
+ }
+ //Verify the uploaded fileName
+ String expFileName = "SampleFileUpload.txt";
+ WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+ WebElement element = driver.findElement(By.xpath("//div[@class='message-box']"));
+ String actFileName = wait.until(ExpectedConditions.visibilityOf(element)).getText();
+ System.out.println("expFileName : " + expFileName);
+ System.out.println("actFileName : " + actFileName);
+ Assert.assertTrue(expFileName.equals(actFileName), "Expected file : " + expFileName
+ + " did not uploaded properly, act fileName : " + actFileName);
+ }
+ @AfterMethod
+ public void tearDown() {
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+ driver.quit();
+ }
+}

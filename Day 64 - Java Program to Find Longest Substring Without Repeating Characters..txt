@@ -1,0 +1,49 @@
+Java Program to Find Longest Substring Without Repeating Characters.
+
+Steps:
+📌 We start by initializing variables i, j and maxLength to 0. We also create a HashSet called set to keep track of the characters we have visited so far.
+
+📌 Use a while loop to iterate through the String s.
+
+📌 For each character s.charAt(j) in s, we check whether it is already in the set. If it is not in the set, we add it to the set, increment j, and update the maxLength if necessary.
+
+📌 If the character is already in the set, we remove the character at i from the set, increment i, and continue with step 3.
+
+📌 Once we have checked all characters in s, we return the maxLength.
+
+Code:
+package CodingChallengeOf100Days;
+
+import java.util.HashSet;
+import java.util.Set;
+
+public class LongestSubstring {
+ public static int lengthOfLongestSubstring(String s) {
+ if (s == null || s.isEmpty()) {
+ return 0;
+ }
+ int n = s.length();
+ if (n == 1) {
+ return 1;
+ }
+ int maxLength = 0;
+ int i = 0, j = 0;
+ Set<Character> set = new HashSet<>();
+ while (i < n && j < n) {
+ if (!set.contains(s.charAt(j))) {
+ set.add(s.charAt(j++));
+ maxLength = Math.max(maxLength, j - i);
+ } else {
+ set.remove(s.charAt(i++));
+ }
+ }
+ return maxLength;
+ }
+ public static void main(String[] args) {
+ System.out.println(lengthOfLongestSubstring("abcadbcbb"));
+ System.out.println(lengthOfLongestSubstring(""));
+ System.out.println(lengthOfLongestSubstring("a"));
+ System.out.println(lengthOfLongestSubstring("bbbbb"));
+
+ }
+}

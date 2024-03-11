@@ -1,0 +1,46 @@
+📍 Finding the frequency of each character in a given string using a HashMap 
+
+Step 1: Understand the Problem:
+The task is to count the frequency of each character in a given string and store the results in a HashMap.
+
+Step 2: Initialize the HashMap:
+Create a HashMap where the keys will represent characters, and the values will represent their frequencies.
+---------------------------------------
+import java.util.HashMap;
+import java.util.Map;
+
+public class CharacterFrequency {
+ public static void main(String[] args) {
+ String name= "santosh";
+ Map<Character, Integer> map = new HashMap<>();
+ }
+}
+---------------------------------------
+
+Step 3: Iterate Through the String:
+Loop through each character in the given string.
+---------------------------------------
+for (char ch : name.toCharArray()) {
+ // Logic to update the frequency in the map
+}
+---------------------------------------
+
+Step 4: Update Frequency in HashMap:
+Check if the character is already in the HashMap. If it is, increment its frequency by 1. If it's not, add it to the HashMap with a frequency of 1.
+---------------------------------------
+for(char ch : name.toCharArray()){
+ if(map.containsKey(ch)){
+ map.put(ch, map.get(ch) + 1);
+ } else {
+ map.put(ch, 1);
+ }
+}
+---------------------------------------
+
+Step 5: Display the Results:
+Print the contents of the HashMap to see the frequency of each character.
+---------------------------------------
+for (Map.Entry<Character, Integer> entry : map.entrySet()){
+ System.out.print(entry.getKey() + ": " + entry.getValue()+ ", ");
+}
+---------------------------------------

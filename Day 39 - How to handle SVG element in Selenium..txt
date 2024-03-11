@@ -1,0 +1,53 @@
+📍 How to handle SVG element in Selenium.
+
+- We can xpath to grab SVG elements with Selenium WebDriver.
+- A SVG element is identified with tagname svg. The svg image has the attributes like width and height attributes.
+- To create a xpath for a svg element, we have the syntax as //*[local-name()='svg'].
+
+//*[local-name()='svg' and @data-icon='home']/*[local-name()='path']
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+
+public class SVGElement {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.manage().window().maximize();
+ driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+ driver.get("https://lnkd.in/dPgqcekh");
+
+ //Circle
+ WebElement svgCircle = driver.findElement(By.xpath("//*[name()='svg']//*[local-name()='circle']"));
+ System.out.println("X-coordinate : "+svgCircle.getAttribute("cx"));
+ System.out.println("Y-coordinate : "+svgCircle.getAttribute("cy"));
+ System.out.println("Radius : "+svgCircle.getAttribute("r"));
+ System.out.println("Stroke : "+svgCircle.getAttribute("stroke"));
+ System.out.println("Stroke Width : "+svgCircle.getAttribute("stroke-width"));
+ System.out.println("Fill Color : "+svgCircle.getAttribute("fill"));
+ driver.close();
+
+ //Reactangle
+ WebElement svgReactangle = driver.findElement(By.xpath("//*[local-name()='rect' and @id='rectangle']"));
+ System.out.println("Width : "+svgReactangle.getAttribute("width"));
+ System.out.println("Height : "+svgReactangle.getAttribute("height"));
+
+ System.out.println("------------------------------------------");
+
+ //Text
+ WebElement svgText = driver.findElement(By.xpath("//*[local-name()='text']"));
+ System.out.println("Text getText() : "+svgText.getText());
+ System.out.println("Text using textContent : "+svgText.getAttribute("textContent"));
+ System.out.println("Text using innerHTML : "+svgText.getAttribute("innerHTML"));
+
+ driver.quit();
+ }
+}

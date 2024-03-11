@@ -1,0 +1,64 @@
+📍 Read JSON data in selenium:
+
+✔ Data Driven Testing in Selenium with Java Using JSON file.
+
+✔ Create a JSONParser instance to parse the JSON file into a tree structure with any FileInputStream  object as the parameter.
+
+JSONParser jsonParser = new JSONParser();
+FileReader reader = new FileReader("Testdata.json");
+//Read JSON file
+Object obj = jsonParser.parse(reader); 
+
+code:
+package CodingChallengeOf100Days;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ReadJSONData {
+ @Test(dataProvider = "DP")
+ public void showData(HashMap<String, String> map) {
+ System.out.println();
+ }
+
+ @DataProvider(name = "DP")
+ public Object[] readData() throws IOException, ParseException {
+ JSONParser jsonParser = new JSONParser();
+ FileReader reader = new FileReader(System.getProperty("user.dir") + "\\src\\test\\java\\CodingChallengeOf100Days\\data.json");
+
+ // Read JSON file
+ Object object = jsonParser.parse(reader);
+ JSONArray playerList = (JSONArray) object;
+ //System.out.println("Player List -> " +playerList); //This prints the entire json file
+
+ Object[] data = new Object[playerList.size()];
+ Map<String, String> map;
+
+ for (int i = 0; i < playerList.size(); i++) {
+ map = new HashMap<>();
+ JSONObject players = (JSONObject) playerList.get(i);
+ //System.out.println("Players -> " +players); //This prints every block - one json object
+
+ JSONObject player = (JSONObject) players.get("players");
+ System.out.println("Player -> " + player); //This prints each data in the block
+
+ String playerName = (String) player.get("playername");
+ String runs = (String) player.get("runs");
+ //System.out.println("The playername in JSON is: "+playerName);
+ //System.out.println("The runs in JSON are: "+runs);
+ map.put("playerName", playerName);
+ map.put("runs", runs);
+ data[i] = map;
+ }
+ return data;
+ }
+}

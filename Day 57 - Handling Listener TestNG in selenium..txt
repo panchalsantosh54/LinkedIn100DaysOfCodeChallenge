@@ -1,0 +1,48 @@
+📍 Handling Listener TestNG in selenium.
+
+📌 Listener listens the test cases execution, listener understands when test case execution starts, when it ends, when it is successful, failed, skipped. 
+
+📌 We can take any action depending on the test case execution status.
+
+📌 ITestListener is an interface which has to be implemented and registered with testng.xml in order to take effect of listener class.
+
+📌 What are Listeners present in TestNG?
+-> IAnnotationTransformer : TestNG allows you to modify the content of all the annotations at runtime.
+-> IHookable :
+-> IInvokedMethodListener :
+-> IMethodInterceptor : TestNG allows you to modify the methods to run
+-> IReporter :
+-> ISuiteListener : We can modify or ask TestNG to execute a set of specific test scripts/methods.
+-> ITestListener : TestNG listens the output of test methods and can act on method failure to take screen shot, report failure to the external reporting software (eg: Extent report).
+-> IRetryAnalyzer: It is an interface allows you to decide how many times failed test case to run.
+
+Code: 
+package CodingChallengeOf100Days;
+
+import org.testng.Assert;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
+
+@Listeners(CodingChallengeOf100Days.CustomListener2ITestListner.class)
+public class TestCasesITestListerner {
+ @BeforeMethod
+ public void beforeMethod() {
+ System.out.println("I am inside Before method");
+ }
+ @Test(priority = 1)
+ public void Reg() {
+ System.out.println("Executing User Registration test case");
+ }
+ @Test(priority = 2)
+ public void LogIn() {
+ System.out.println("Executing Login test case");
+ Assert.assertEquals(1 == 2, "1 is not equal to 2");
+ }
+ @Test(priority = 3)
+ public void LogOut() {
+ System.out.println("Executing LogOut test case");
+ throw new SkipException("Skipping LogOut test case");
+ }
+}

@@ -1,0 +1,69 @@
+📍 Handling DataProvider attributes testng in selenium.
+
+📌 DataProvider: used to define data sets to provide to the test script.
+📌 Marks a method as supplying data for a test method. 
+📌 The annotated method must return an Object[][] where each Object[] can be assigned the parameter list of the test method. 
+📌The @Test method that wants to receive data from this DataProvider needs to use a dataProvider name equals to the name of this annotation.
+
+Code:
+package CodingChallengeOf100Days;
+
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+
+public class DataProviderExcelReadingHashMap {
+
+ @Test(dataProvider = "DP1")
+ public void verifyLoginTest(HashMap<String, String> map) {
+ System.out.println(map.get("id") + ": " + map.get("name") + ": " + map.get("designation") + ": " + map.get("salary"));
+ }
+
+ @DataProvider(name = "DP1")
+ public Object[] getData() {
+ Object[] data;
+ String sheetName = "PlayerInfo";
+ String fileName = System.getProperty("user.dir") + "\\src\\test\\resource\\testData.xlsx";
+
+ try {
+ FileInputStream fis = new FileInputStream(fileName);
+ try (XSSFWorkbook workbook = new XSSFWorkbook(fis)) {
+ XSSFSheet sheet = workbook.getSheet(sheetName);
+
+ int totalRows = sheet.getLastRowNum();
+ System.out.println("totalRows : " + totalRows);
+
+ data = new Object[totalRows];
+ int totalColums = sheet.getRow(0).getLastCellNum();
+ System.out.println("totalColums : " + totalColums);
+
+ HashMap<String, String> map = null;
+
+ for (int r = 1; r <= totalRows; r++) {
+ map = new HashMap<>();
+ for (int c = 0; c < totalColums; c++) {
+ String header = sheet.getRow(0).getCell(c).getStringCellValue();
+ String value = sheet.getRow(r).getCell(c).getStringCellValue();
+ map.put(header, value);
+ System.out.println("header: " + header + " value:" + value);
+
+ }
+ data[r - 1] = map;
+ }
+ }
+ } catch (FileNotFoundException e) {
+ e.printStackTrace();
+ throw new RuntimeException("File not found " + fileName);
+ } catch (IOException e) {
+ e.printStackTrace();
+ throw new RuntimeException("Issue in creating Workbook Excel File object" + fileName);
+ }
+ return data;
+ }
+}

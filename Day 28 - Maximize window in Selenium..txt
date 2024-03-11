@@ -1,0 +1,37 @@
+📍 Maximize window in Selenium.
+
+✔ Using ChromeDriverOptions we can perform by add as arguments.
+✔ Using maximize() method.
+✔ Using setSize() method by passing dimension as an argument.
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Dimension;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+public class MaximizeWindow {
+ public static void main(String[] args) {
+ WebDriverManager.chromedriver().setup();
+ // option 1
+ ChromeOptions chromeOptions = new ChromeOptions();
+ chromeOptions.addArguments("--start-maximized");
+ WebDriver driver = new ChromeDriver(chromeOptions);
+
+ // option 2
+ driver.get("https://www.google.co.in/");
+ driver.manage().window().maximize();
+
+ String titlePage = driver.getTitle();
+ System.out.println(titlePage);
+
+ // option 3
+ Dimension dimension = new Dimension(1366, 768);
+ driver.manage().window().setSize(dimension);
+
+ driver.close();
+ }
+}

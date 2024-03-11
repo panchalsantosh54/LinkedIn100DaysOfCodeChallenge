@@ -1,0 +1,48 @@
+📍 Handling alerts in Selenium.
+
+- Alerts are small popup boxes/windows which display the messages/notifications and notify the user with some information seeking some permission on certain kinds of operations.)
+1) Simple alert
+2) Confirm alert
+3) Prompt alert
+
+Alert simpleAlert = driver.switchTo( ).alert( );
+
+📌 accept() method to accept the alert.
+📌 dismiss() method to cancel the alert.
+📌 sendkeys() to enter values in the prompt box.
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class AlertHandlingDemo {
+ public static void main(String[] args) throws InterruptedException {
+ WebDriverManager.chromedriver().setup();
+ WebDriver driver = new ChromeDriver();
+ driver.get("https://lnkd.in/dFrZjREe");
+ driver.manage().window().maximize();
+ Thread.sleep(2000);
+ driver.findElement(By.id("alertBox")).click();
+ Alert alert = driver.switchTo().alert();
+ Thread.sleep(2000);
+ alert.accept();
+
+ driver.findElement(By.id("confirmBox")).click();
+ Alert alert2 = driver.switchTo().alert();
+ Thread.sleep(2000);
+ alert2.accept();
+// alert2.dismiss();
+
+ driver.findElement(By.id("promptBox")).click();
+ Alert alert3 = driver.switchTo().alert();
+ Thread.sleep(2000);
+ alert3.sendKeys("Santosh");
+ alert3.accept();
+// alert3.dismiss();
+ }
+}

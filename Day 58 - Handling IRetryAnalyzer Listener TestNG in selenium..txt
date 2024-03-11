@@ -1,0 +1,42 @@
+📍 Handling IRetryAnalyzer Listener TestNG in selenium.
+
+📌 IRetryAnalyzer: It is an interface allows you to decide how many times failed test case to run.
+
+@Test(retryAnalyzer = Retry.class)
+public void testCase() {
+}
+
+📌 testng.xml used for?
+ A suite is represented by one XML file called testng.xml by default. It can contain one or more tests and is defined by the <suite> tag.
+ You can rename this file to any name provided that the extension remains same(ie. .xml)
+ A test is represented by <test> and can contain one or more TestNG classes.
+ A TestNG class is a Java class that contains at least one TestNG annotation. It is represented by the <class> tag and can contain one or more test methods.
+ A test method is a Java method annotated by @Test in your source.
+
+Code:
+package CodingChallengeOf100Days;
+
+import org.testng.Assert;
+import org.testng.annotations.Test;
+
+import java.util.Random;
+
+public class TestSample {
+ @Test(retryAnalyzer = MyRetry.class)
+ public void Test1() {
+ System.out.println("Test 1 is executed");
+ Assert.assertTrue(1 == 1, "Test 1 failed due to mismatch of condition");
+ }
+
+ @Test(retryAnalyzer = MyRetry.class)
+ public void Test2() {
+ Random random = new Random();
+ int x = random.nextInt(50);
+ System.out.println("x = " + x);
+ System.out.println("Test 2 is executed");
+ Assert.assertTrue(4 == x, "Test 2 failed due to mismatch of condition");
+
+// Assert.assertTrue(4 == 5, "Test 2 failed due to mismatch of condition");
+
+ }
+}

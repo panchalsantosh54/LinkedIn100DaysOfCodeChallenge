@@ -1,0 +1,54 @@
+Handling Collection Stream API in selenium.
+
+📌 Java 8 provided a new package called java.util.stream which contains multiple classes and interfaces.
+
+📌 A stream of objects supports both sequential and parallel aggregate operations. It contains a lot of methods like map(), count(), distinct(), filter() etc. which makes complex operation on elements easier.
+
+📌 Java Lambdas and Streams simplify the Selenium WebDriver code, especially when you are working with web tables, handling windows/frames, sorting the list of web elements, or filtering the web elements from the collection.
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+import java.time.Duration;
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class CollectionStreamAPISelenium {
+public static void main(String[] args) {
+WebDriverManager.chromedriver().setup();
+WebDriver driver = new ChromeDriver();
+driver.get("https://lnkd.in/dTSMygw6");
+List<WebElement> links = driver.findElements(By.tagName("a")); //Here is List is Collection
+System.out.println(links.size());
+
+//Printing linkTexts using for..each loop(Before Java 8)
+for (WebElement link : links) {
+System.out.println(link.getText());
+}
+
+//Printing linkTests using Lambda Expression
+links.forEach(link -> System.out.println(link.getText()));
+// Printing href attribute values
+List<String> hrefValues = links.stream()
+.map(link -> link.getAttribute("href"))
+.filter(href -> href != null)
+.collect(Collectors.toList());
+
+// Printing href attribute values
+hrefValues.forEach(href -> System.out.println("Href: " + href));
+
+//Processing elements using stream -> Filter
+long workingLinks = links.stream().filter(link -> link.getAttribute("href") != null).count();
+//Printing href attribute values
+System.out.println("Working link : " + workingLinks);
+
+driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(25));
+driver.quit();
+}
+}

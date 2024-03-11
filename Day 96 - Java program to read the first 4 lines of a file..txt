@@ -1,0 +1,25 @@
+📌 Solution:
+package CodingChallengeOf100Days;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class ReadFirstFourLines {
+ public static void main(String[] args) {
+ try {
+ BufferedReader bufferedReader = new BufferedReader(new FileReader("D:\\example.txt"));
+ String strLine = "";
+ int lineCount = 0;
+ while ((strLine = bufferedReader.readLine()) != null && lineCount < 4) {
+ System.out.println(strLine);
+ lineCount++;
+ }
+ } catch (FileNotFoundException e) {
+ System.out.println("File Not Found");
+ } catch (IOException e) {
+ System.out.println("Unable to read the file.");
+ }
+ }
+}

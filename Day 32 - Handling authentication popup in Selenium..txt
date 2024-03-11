@@ -1,0 +1,56 @@
+📍 Handling authentication popup in Selenium.
+
+✔ As we can't inspect send keys, we should send the URL as follows. http://username:password@url
+
+- Simple pop-up notifications are those that show details to the user.
+- Information can be of any kind, sometimes requiring certain operating permissions, sometimes requesting a username and password.
+
+- To handle login pop-up using Selenium in java .
+1) Pass the credentials in the URL of the web page.
+http://username:password@url
+
+Code:
+package CodingChallengeOf100Days;
+
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.Assert;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class AuthenticationPopUp {
+ WebDriver driver;
+ String username;
+ String password;
+ String domain;
+ String url;
+
+ @BeforeTest
+ public void setUp() {
+ WebDriverManager.chromedriver().setup();
+ // Instantiate the webdriver
+ driver = new ChromeDriver();
+ username = "admin";
+ password = "admin";
+ domain = "https://lnkd.in/dHiuwDmG";
+ }
+
+ @Test
+ public void launch() {
+ url = "https://" + username + ":" + password + "@" + domain;
+ driver.get(url);
+ String text= driver.findElement(By.cssSelector("div[class='example'] p")).getText().trim();
+ System.out.println(text);
+ Assert.assertEquals(text, "Congratulations! You must have the proper credentials.");
+ String title = driver.getTitle();
+ System.out.println(title);
+ }
+
+ @AfterTest
+ public void tearDown() {
+ driver.quit();
+ }
+}

@@ -1,0 +1,53 @@
+🔷 Fetching HTML WebTable Data with Selenium WebDriver and Java:
+
+xpath() is commonly used to access elements of WebTable in Selenium. 
+
+=> Here is a simplified guide to help you get started:
+
+📍 Set Up Your Project:
+Ensure that you have Selenium WebDriver and the necessary browser driver (e.g., ChromeDriver) properly set up in your project.
+
+📍 Locate the WebTable:
+Use XPath or CSS selectors to locate the WebTable element in the HTML.
+
+📍 Get Rows and Columns:
+Determine the number of rows and columns in the WebTable using WebDriver methods.
+
+📍 Iterate Through Rows and Columns:
+Loop through the rows and columns to fetch the cell values.
+
+Here's a code example using java:
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+
+public class WebTableExample {
+
+ public static void main(String[] args) {
+ System.setProperty("webdriver.chrome.driver", "path_to_chromedriver your system");
+ WebDriver driver = new ChromeDriver();
+ driver.get("your_webpage_url");
+
+ WebElement webTable = driver.findElement(By.xpath("//table[@id='your_table_id']"));
+
+ int numRows = webTable.findElements(By.tagName("tr")).size();
+
+ int numCols = webTable.findElements(By.tagName("tr")).get(0).findElements(By.tagName("td")).size();
+
+ for (int row = 0; row < numRows; row++) {
+ for (int col = 0; col < numCols; col++) {
+
+ WebElement cell = webTable.findElements(By.tagName("tr")).get(row)
+
+ .findElements(By.tagName("td")).get(col);
+
+ String cellValue = cell.getText();
+ System.out.println("Row " + (row + 1) + ", Column " + (col + 1) + ": " + cellValue);
+
+ }
+ }
+ driver.quit();
+ }
+}
